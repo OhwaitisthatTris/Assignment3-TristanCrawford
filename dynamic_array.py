@@ -47,12 +47,36 @@ self._length:
 self._length -= 1
         pass
 
-    def insert(self, index, value):
-        # YOUR CODE HERE
+ def insert(self, index, value):
+    if self._length == self._capacity:
+        self._resize()
+
+    if index < 0:
+        index += self._length
+
+    if index < 0:
+        index = 0
+
+    if index > self._length:
+        index = self._length
+
+    for i in range(self._length, index, -1):
+        self._array[i] = self._array[i - 1]
+
+    self._array[index] = value
+    self._length += 1
         pass
 
-    def _resize(self):
-        # YOUR CODE HERE
+def _resize(self):
+    new_capacity = self._capacity * DynamicArray.GROWTH_FACTOR
+
+    new_array = array('i', [0] * new_capacity)
+
+    for i in range(self._length):
+        new_array[i] = self._array[i]
+
+    self._array = new_array
+    self._capacity = new_capacity
         pass
 
     def __repr__(self):
