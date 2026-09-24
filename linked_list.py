@@ -1,6 +1,6 @@
 # linked_list.py
 # A singlely linked list with a tracked head
-# Modified by: 
+# Modified by: Tristan Crawford Jr
 
 from collections.abc import MutableSequence
 
@@ -41,12 +41,49 @@ class LinkedList(MutableSequence):
         current.value = value
 
     def __delitem__(self, index):
-        # YOUR CODE HERE
-        pass
+        if index < 0:
+            index += self._length
+
+        if index < 0 or index >= self._length:
+            raise IndexError("Index out of range")
+
+        if index == 0:
+            self.head = self.head.next
+        else:
+            current = self.head
+
+            for _ in range(index - 1):
+                current.next = current.next
+
+            current.next = current.next.next
+
+        self._length -= 1
 
     def insert(self, index, value):
-        # YOUR CODE HERE
-        pass
+        if index < 0:
+            index += self._length
+
+        if index < 0:
+            index = 0
+
+        if index > self._length:
+            index = self._length
+
+        new_node = LLNode(value)
+
+        if index == 0:
+            new_node.next = self.head
+            self.head = new_node
+        else:
+            current = self.head
+
+            for _ in range(index - 1):
+                current.next = current.next
+
+            new_node.next = current.next
+            current.next = new_node
+
+        self._length += 1
 
     def append(self, value):
         self.insert(self._length, value)
